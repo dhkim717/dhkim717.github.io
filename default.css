@@ -1,198 +1,298 @@
-/*
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-*/
+/* =========================================
+   Modern Faculty Homepage CSS (drop-in)
+   Keeps your existing IDs: #header, #menu1,
+   #content, #colOne, #colTwo, #footer
+   ========================================= */
 
-body {
-	background: #AFB3A5;
-	text-align: justify;
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	font-size: small;
-	text-align: justify;
-	color: #323B2E;
+:root{
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --muted: rgba(15, 23, 42, 0.65);
+  --text: #0f172a;
+  --border: rgba(15, 23, 42, 0.12);
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
+  --shadow-soft: 0 6px 18px rgba(15, 23, 42, 0.08);
+
+  /* accent: “academic” navy */
+  --accent: #1e3a8a;
+  --accent-2: #0ea5e9;
+
+  --radius: 16px;
+  --radius-sm: 12px;
+  --maxw: 980px;
 }
 
-h1, h2, h3, h4, h5 {
-	margin: 0;
+*{ box-sizing: border-box; }
+
+html, body{ height: 100%; }
+
+body{
+  margin: 0;
+  background: radial-gradient(1100px 700px at 15% 0%, rgba(30,58,138,0.10), transparent 55%),
+              radial-gradient(900px 600px at 85% 10%, rgba(14,165,233,0.10), transparent 55%),
+              var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.6;
+  text-align: left; /* 기존 justify 제거 */
 }
 
-/* Header */
-
-#header {
-	width: 800px;
-	height: 100px;
-	margin: 0 auto;
-	padding: 0;
-	border: 10px solid #FFFFFF;
-	border-bottom: none;
-	background: #788770;
+/* Headings */
+h1, h2, h3, h4, h5{
+  margin: 0 0 10px 0;
+  letter-spacing: -0.01em;
+}
+#content h2{
+  font-size: 18px;
+  margin: 18px 0 10px 0;
 }
 
-#header h1 {
-	float: left;
-	margin: 20px 0 0 20px;
-	font-size: 50px;
-	letter-spacing: 0px;
-	color: white;
+/* Links */
+a{
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .15s ease, background .15s ease, opacity .15s ease;
+}
+a:hover{ color: #102a70; }
+
+/* =========================================
+   Header
+   ========================================= */
+#header{
+  width: min(var(--maxw), calc(100% - 32px));
+  margin: 22px auto 0 auto;
+  padding: 22px 24px;
+  height: auto; /* fixed height 제거 */
+  border: 1px solid rgba(255,255,255,0.30);
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--accent), #0b255f 60%, #0a1f4a);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
 }
 
-#header h2 {
-	float: right;
-	margin: 40px 20px 0 0;
-	font-size: 18px;
-	letter-spacing: 0px;
-	color: white;
+/* subtle highlight */
+#header::after{
+  content:"";
+  position:absolute;
+  inset:-120px -120px auto auto;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle at 30% 30%, rgba(14,165,233,0.35), transparent 60%);
+  transform: rotate(15deg);
+  pointer-events:none;
 }
 
-
-a {
-	color: #323B2E;
-	text-decoration: none;
+#header h1{
+  float: none;
+  margin: 0;
+  font-size: clamp(30px, 4vw, 44px);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
-a:hover {
-	color: #555E4F;
-	text-decoration: none;
+#header h2{
+  float: none;
+  margin: 6px 0 0 0;
+  font-size: 14px;
+  color: rgba(255,255,255,0.88);
+  font-weight: 500;
 }
 
-/* Menu */
-
-#menu1 {
-	float: left;
-	width: 160px;
-	margin: 0px auto;
-	padding-bottom: 20px;
-	text-transform: uppercase;
-	font-weight: bold;
-	font-size: 14px;
-	color: #323B2E;
+/* =========================================
+   Layout Container
+   ========================================= */
+#content{
+  width: min(var(--maxw), calc(100% - 32px));
+  margin: 14px auto 0 auto;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-soft);
 }
 
-#menu1 ul {
-	margin: 0px;
-	list-style: none;
-	padding: 0px;
+/* Columns */
+#colOne{
+  float: left;
+  width: 240px; /* 조금 넓게 */
+  margin-top: 0;
+  padding: 6px 14px 12px 8px;
 }
 
-#menu1 li {
+#colTwo{
+  float: right;
+  width: calc(100% - 260px);
+  margin-top: 0;
+  padding: 6px 8px 12px 14px;
 }
 
-#menu1 a {
-	display: block;
-	width: 190px;
-	padding: 15px 0px;
-	background-color: #788770;
-	border-top: 1px solid #323B2E;
-	border-bottom: 1px solid #788770;
-	text-align: center;
-	text-decoration: none;
-	text-transform: uppercase;
-	font-weight: bold;
-	color: #FFFFFF;
+/* Clearfix for old float layout */
+#content::after{
+  content:"";
+  display:block;
+  clear: both;
 }
 
-#menu1 a:hover {
-	background-color: #AFB3A5;
-	border-top: 1px solid #555E4F;
-	border-bottom: 1px solid #555E4F;
+/* =========================================
+   Menu (Left)
+   ========================================= */
+#menu1{
+  float: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-transform: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
 }
 
-/* Content */
-
-#content {
-	width: 800px;
-	margin: 0 auto;
-	border: 10px solid #FFFFFF;
-	border-top: none;
-	background: #E9EAE2;
+#menu1 ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 10px 22px rgba(15,23,42,0.06);
 }
 
-#colOne {
-	float: left;
-	width: 190px;
-	margin-top: 20px;
-	padding: 0 10px 0 20px;
+#menu1 li{ margin: 0; }
+
+#menu1 a{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(15,23,42,0.08);
+  text-align: left;
+  text-transform: none;
+  font-weight: 650;
+  color: var(--text);
 }
 
-#colTwo {
-	float: right;
-	margin-top: 20px;
-	width: 540px;
-	padding: 0 20px 0 20px;
+#menu1 a:hover{
+  background: rgba(30,58,138,0.06);
+  color: var(--accent);
 }
 
-#content h2 {
-	margin-bottom: 0px;
-	font-size: 18px;
-	letter-spacing: 0px;
+#menu1 ul li:last-child a{ border-bottom: 0; }
+
+/* Optional: make the menu feel like “nav card” */
+#colOne > h2{
+  margin-top: 0;
 }
 
-
-#footer {
-	width: 800px;
-	margin: 0 auto;
-	padding-top: 20px;
+/* =========================================
+   Typography helpers (optional)
+   ========================================= */
+p{
+  margin: 0 0 12px 0;
+  color: rgba(15,23,42,0.92);
 }
 
-
-#footer p {
-	text-align: center;
-	padding: 0;
-	font-size: 10px;
+/* Card utility you can use in HTML if you want: <div class="panel"> */
+.panel{
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: 0 10px 22px rgba(15,23,42,0.06);
+  padding: 14px 16px;
 }
-/* ===== Course list (scoped to #colTwo) ===== */
+
+/* =========================================
+   Course list (scoped to #colTwo)
+   ========================================= */
 #colTwo .course-subtitle{
   margin: 6px 0 14px 0;
-  color: rgba(0,0,0,0.65);
-  font-size: 12px;
+  color: var(--muted);
+  font-size: 13px;
 }
 
 #colTwo .course-table{
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.12);
-  border-radius: 12px;
-  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: 0 10px 22px rgba(15,23,42,0.06);
 }
 
 #colTwo .course-row{
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.25fr 1fr;
   gap: 14px;
   padding: 12px 14px;
-  border-top: 1px solid rgba(0,0,0,0.08);
+  border-top: 1px solid rgba(15,23,42,0.08);
 }
 
 #colTwo .course-row:first-child{ border-top: none; }
 
 #colTwo .course-head{
-  background: rgba(0,0,0,0.04);
-  font-weight: bold;
+  background: rgba(30,58,138,0.05);
+  font-weight: 800;
+  color: rgba(15,23,42,0.90);
 }
 
 #colTwo .course-cell{ line-height: 1.35; }
 
 #colTwo .course-code{
-  font-weight: bold;
+  font-weight: 800;
   font-size: 13px;
+  letter-spacing: -0.01em;
 }
 
 #colTwo .course-name{
-  color: rgba(0,0,0,0.70);
-  font-size: 12px;
+  color: rgba(15,23,42,0.70);
+  font-size: 12.5px;
   margin-top: 2px;
 }
 
 #colTwo .course-row:not(.course-head):hover{
-  background: rgba(0,0,0,0.03);
+  background: rgba(2,6,23,0.02);
 }
 
-/* Mobile */
+/* =========================================
+   Footer
+   ========================================= */
+#footer{
+  width: min(var(--maxw), calc(100% - 32px));
+  margin: 14px auto 28px auto;
+  padding-top: 0;
+}
+
+#footer p{
+  text-align: center;
+  padding: 10px 0;
+  font-size: 12px;
+  color: rgba(15,23,42,0.60);
+}
+
+/* =========================================
+   Responsive (mobile)
+   ========================================= */
+@media (max-width: 880px){
+  #colOne, #colTwo{
+    float: none;
+    width: 100%;
+    padding: 6px 6px 12px 6px;
+  }
+  #content{ padding: 14px; }
+  #header{ padding: 18px 18px; }
+}
+
 @media (max-width: 720px){
   #colTwo .course-head{ display: none; }
   #colTwo .course-row{ grid-template-columns: 1fr; gap: 6px; }
   #colTwo .course-row .course-cell:last-child{
-    color: rgba(0,0,0,0.65);
-    font-size: 12px;
+    color: rgba(15,23,42,0.62);
+    font-size: 12.5px;
   }
 }
