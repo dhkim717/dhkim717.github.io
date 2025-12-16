@@ -5,100 +5,69 @@
    ========================================= */
 
 :root{
-  --bg: #f3f4f6;
+  /* Princeton-inspired palette (warm + orange accent) */
+  --bg: #f7f3ea;          /* warm ivory */
   --surface: #ffffff;
-  --muted: rgba(15, 23, 42, 0.65);
-  --text: #0f172a;
-  --border: rgba(15, 23, 42, 0.12);
-  --shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
-  --shadow-soft: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --muted: rgba(28, 28, 28, 0.62);
+  --text: #1c1c1c;        /* deep charcoal */
+  --border: rgba(28, 28, 28, 0.12);
+  --shadow: 0 12px 34px rgba(28, 28, 28, 0.12);
+  --shadow-soft: 0 8px 22px rgba(28, 28, 28, 0.10);
 
-  /* accent: “academic” navy */
-  --accent: #1e3a8a;
-  --accent-2: #0ea5e9;
-
+  --accent: #f58025;      /* Princeton orange vibe */
+  --accent-2: #111827;    /* near-black / navy */
   --radius: 16px;
   --radius-sm: 12px;
   --maxw: 980px;
 }
 
-*{ box-sizing: border-box; }
-
-html, body{ height: 100%; }
-
 body{
   margin: 0;
-  background: radial-gradient(1100px 700px at 15% 0%, rgba(30,58,138,0.10), transparent 55%),
-              radial-gradient(900px 600px at 85% 10%, rgba(14,165,233,0.10), transparent 55%),
-              var(--bg);
+  background:
+    radial-gradient(900px 600px at 12% 0%, rgba(245,128,37,0.14), transparent 60%),
+    radial-gradient(1000px 700px at 92% 12%, rgba(17,24,39,0.08), transparent 62%),
+    linear-gradient(180deg, #fbf7ef 0%, #f6f2e9 45%, var(--bg) 100%);
   color: var(--text);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.6;
-  text-align: left; /* 기존 justify 제거 */
+  text-align: left;
 }
 
-/* Headings */
-h1, h2, h3, h4, h5{
-  margin: 0 0 10px 0;
-  letter-spacing: -0.01em;
-}
-#content h2{
-  font-size: 18px;
-  margin: 18px 0 10px 0;
-}
-
-/* Links */
-a{
-  color: var(--accent);
-  text-decoration: none;
-  transition: color .15s ease, background .15s ease, opacity .15s ease;
-}
-a:hover{ color: #102a70; }
-
-/* =========================================
-   Header
-   ========================================= */
+/* Header: dark + orange accent line */
 #header{
   width: min(var(--maxw), calc(100% - 32px));
   margin: 22px auto 0 auto;
   padding: 22px 24px;
-  height: auto; /* fixed height 제거 */
-  border: 1px solid rgba(255,255,255,0.30);
+  height: auto;
   border-radius: var(--radius);
-  background: linear-gradient(135deg, var(--accent), #0b255f 60%, #0a1f4a);
+  background: linear-gradient(135deg, #111827, #0b1220 65%, #070b12);
   box-shadow: var(--shadow);
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
 }
 
-/* subtle highlight */
+/* Princeton-orange top accent */
+#header::before{
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(245,128,37,1), rgba(245,128,37,0.55));
+}
+
+/* subtle orange glow */
 #header::after{
   content:"";
   position:absolute;
-  inset:-120px -120px auto auto;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle at 30% 30%, rgba(14,165,233,0.35), transparent 60%);
-  transform: rotate(15deg);
+  inset:-140px -140px auto auto;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle at 30% 30%, rgba(245,128,37,0.28), transparent 60%);
+  transform: rotate(12deg);
   pointer-events:none;
 }
 
-#header h1{
-  float: none;
-  margin: 0;
-  font-size: clamp(30px, 4vw, 44px);
-  color: #fff;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-#header h2{
-  float: none;
-  margin: 6px 0 0 0;
-  font-size: 14px;
-  color: rgba(255,255,255,0.88);
-  font-weight: 500;
-}
 
 /* =========================================
    Layout Container
