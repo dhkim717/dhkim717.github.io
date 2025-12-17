@@ -1,9 +1,8 @@
 /* =========================================
-   Faculty Homepage CSS (Ivory / Light Gray)
-   - Clean CS-professor style
-   - Flex layout (prevents #colTwo dropping)
-   - Works with your existing IDs:
-     #header, #content, #colOne, #colTwo, #menu1, #footer
+   Faculty Homepage CSS (Ivory/Light Gray) - v3
+   Goal: ALWAYS left menu + right content
+   Works even if #menu1 is not inside #colOne
+   Uses GRID on #content with fallback rules.
    ========================================= */
 
 :root{
@@ -14,11 +13,10 @@
 
   /* Surfaces */
   --surface: #ffffff;
-  --surface-2: rgba(255,255,255,0.85);
+  --surface-2: rgba(255,255,255,0.90);
 
   /* Text */
   --text: #111827;      /* near-black navy */
-  --text-2: #1f2937;    /* dark gray */
   --muted: rgba(17,24,39,0.62);
 
   /* Borders & shadows */
@@ -26,14 +24,18 @@
   --shadow: 0 14px 38px rgba(17,24,39,0.10);
   --shadow-soft: 0 10px 26px rgba(17,24,39,0.08);
 
-  /* Accent (use sparingly) */
-  --accent: #f58025;      /* subtle Princeton-ish orange */
+  /* Accent (minimal) */
+  --accent: #f58025;
   --accent-dark: #b45309;
+  --ink: #0f172a;
 
   /* Layout */
   --radius: 18px;
   --radius-sm: 12px;
   --maxw: 980px;
+
+  /* Sidebar width */
+  --side: 260px;
 }
 
 *{ box-sizing: border-box; }
@@ -45,11 +47,10 @@ body{
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.65;
   text-align: left;
-
   background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg) 45%, var(--bg-bottom) 100%);
 }
 
-/* Base typography */
+/* Typography */
 p{ margin: 0 0 12px 0; color: rgba(17,24,39,0.92); }
 h1,h2,h3,h4,h5{ margin: 0 0 10px 0; letter-spacing: -0.01em; }
 ul{ margin: 0 0 12px 18px; }
@@ -70,16 +71,16 @@ a:hover{ color: var(--accent); }
   width: min(var(--maxw), calc(100% - 32px));
   margin: 16px auto 0 auto;
   padding: 20px 22px;
-
   border-radius: var(--radius);
-  background: linear-gradient(135deg, #0f172a, #111827 55%, #0b1220);
+
+  background: linear-gradient(135deg, var(--ink), #111827 55%, #0b1220);
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.10);
 }
 
-/* Accent line */
+/* orange accent bar */
 #header::before{
   content:"";
   position:absolute;
@@ -95,7 +96,7 @@ a:hover{ color: var(--accent); }
   inset:-170px -170px auto auto;
   width: 480px;
   height: 480px;
-  background: radial-gradient(circle at 30% 30%, rgba(245,128,37,0.22), transparent 62%);
+  background: radial-gradient(circle at 30% 30%, rgba(245,128,37,0.18), transparent 62%);
   transform: rotate(12deg);
   pointer-events:none;
 }
@@ -116,7 +117,8 @@ a:hover{ color: var(--accent); }
 }
 
 /* =========================================
-   Content Container + Layout (Flex)
+   Content container (GRID)
+   IMPORTANT: this forces 2-column layout
    ========================================= */
 #content{
   width: min(var(--maxw), calc(100% - 32px));
@@ -129,38 +131,47 @@ a:hover{ color: var(--accent); }
   backdrop-filter: blur(8px);
   box-shadow: var(--shadow-soft);
 
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: var(--side) 1fr;
   gap: 18px;
+  align-items: start;
 }
 
-/* Disable floats from old template */
+/* =========================================
+   Robust placement rules:
+   - #menu1 is treated as the sidebar
+   - #colTwo is treated as main content
+   - #colOne is optional; if present, it's also sidebar
+   ========================================= */
+
+/* Sidebar column */
+#menu1,
+#colOne{
+  grid-column: 1;
+}
+
+/* Main column */
+#colTwo{
+  grid-column: 2;
+  min-width: 0;
+}
+
+/* If old template floats exist anywhere, neutralize */
 #colOne, #colTwo{
   float: none !important;
-  margin-top: 0 !important;
   width: auto !important;
-}
-
-/* Left column */
-#colOne{
-  flex: 0 0 260px;
+  margin: 0 !important;
   padding: 6px 6px 12px 6px;
 }
 
-/* Right column */
-#colTwo{
-  flex: 1 1 auto;
-  min-width: 0;
-  padding: 6px 6px 12px 6px;
-}
-
-/* Prevent first-child margins pushing down */
+/* Prevent first-child margins from "pushing down" */
+#menu1 > :first-child,
 #colOne > :first-child,
 #colTwo > :first-child{
   margin-top: 0 !important;
 }
 
-/* Section headings */
+/* Section headings inside content */
 #content h2{
   margin: 14px 0 10px 0;
   font-size: 18px;
@@ -173,10 +184,9 @@ a:hover{ color: var(--accent); }
 #menu1{
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 6px 6px 12px 6px; /* make it align with #colTwo padding */
   font-weight: 750;
   font-size: 14px;
-  color: var(--text);
 }
 
 #menu1 ul{
@@ -191,21 +201,17 @@ a:hover{ color: var(--accent); }
   box-shadow: 0 10px 22px rgba(17,24,39,0.06);
 }
 
-#menu1 a{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+#menu1 li{ margin: 0; }
 
+#menu1 a{
+  display: block;
   width: 100%;
   padding: 12px 14px;
 
-  background: transparent;
   border-bottom: 1px solid rgba(17,24,39,0.08);
-
-  text-align: left;
   font-weight: 750;
   color: rgba(17,24,39,0.92);
+  background: transparent;
 }
 
 #menu1 a:hover{
@@ -228,8 +234,7 @@ img{ max-width: 100%; height: auto; }
 }
 
 /* =========================================
-   Utility card (optional)
-   Use in HTML: <div class="panel">...</div>
+   Optional panel utility
    ========================================= */
 .panel{
   border: 1px solid var(--border);
@@ -306,16 +311,17 @@ img{ max-width: 100%; height: auto; }
 }
 
 /* =========================================
-   Responsive
+   Responsive (stack on mobile)
    ========================================= */
 @media (max-width: 900px){
   #content{
-    flex-direction: column;
+    grid-template-columns: 1fr;
     padding: 14px;
   }
-  #colOne, #colTwo{
-    padding: 6px 4px 12px 4px;
+  #menu1, #colOne, #colTwo{
+    grid-column: 1;
   }
+  #menu1{ padding: 0; }
 }
 
 @media (max-width: 720px){
