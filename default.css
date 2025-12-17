@@ -1,100 +1,101 @@
 /* =========================================
-   Princeton-inspired Faculty Homepage (v2)
-   - Fixes "colTwo pushed down" using Flexbox
-   - Works with existing IDs:
+   Faculty Homepage CSS (Ivory / Light Gray)
+   - Clean CS-professor style
+   - Flex layout (prevents #colTwo dropping)
+   - Works with your existing IDs:
      #header, #content, #colOne, #colTwo, #menu1, #footer
    ========================================= */
 
 :root{
-  /* Academic ivory / light gray */
-  --bg: #f5f6f7;              /* light gray base */
-  --surface: #ffffff;         /* cards / panels */
-  --text: #1c1c1c;
-  --muted: rgba(28,28,28,0.62);
-  --border: rgba(28,28,28,0.12);
+  /* Background: ivory / light gray */
+  --bg-top: #fafafa;
+  --bg: #f5f6f7;
+  --bg-bottom: #f1f2f4;
 
-  /* Accent (keep Princeton orange subtle) */
-  --orange: #f58025;
-  --orange-dark: #b45309;
-  --ink: #111827;
+  /* Surfaces */
+  --surface: #ffffff;
+  --surface-2: rgba(255,255,255,0.85);
 
-  --shadow: 0 14px 38px rgba(28,28,28,0.10);
-  --shadow-soft: 0 10px 26px rgba(28,28,28,0.08);
+  /* Text */
+  --text: #111827;      /* near-black navy */
+  --text-2: #1f2937;    /* dark gray */
+  --muted: rgba(17,24,39,0.62);
 
+  /* Borders & shadows */
+  --border: rgba(17,24,39,0.12);
+  --shadow: 0 14px 38px rgba(17,24,39,0.10);
+  --shadow-soft: 0 10px 26px rgba(17,24,39,0.08);
+
+  /* Accent (use sparingly) */
+  --accent: #f58025;      /* subtle Princeton-ish orange */
+  --accent-dark: #b45309;
+
+  /* Layout */
   --radius: 18px;
   --radius-sm: 12px;
   --maxw: 980px;
 }
 
-
 *{ box-sizing: border-box; }
-
 html, body{ height: 100%; }
 
 body{
   margin: 0;
   color: var(--text);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.65;
   text-align: left;
 
-  background:
-    linear-gradient(
-      180deg,
-      #fafafa 0%,
-      #f5f6f7 40%,
-      #f1f2f4 100%
-    );
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg) 45%, var(--bg-bottom) 100%);
 }
 
-
-/* Typography */
-p{ margin: 0 0 12px 0; color: rgba(28,28,28,0.92); }
+/* Base typography */
+p{ margin: 0 0 12px 0; color: rgba(17,24,39,0.92); }
 h1,h2,h3,h4,h5{ margin: 0 0 10px 0; letter-spacing: -0.01em; }
 ul{ margin: 0 0 12px 18px; }
 li{ margin: 6px 0; }
 
 /* Links */
 a{
-  color: var(--orange-dark);
+  color: var(--accent-dark);
   text-decoration: none;
   transition: color .15s ease, background .15s ease, transform .15s ease, opacity .15s ease;
 }
-a:hover{ color: var(--orange); }
+a:hover{ color: var(--accent); }
 
 /* =========================================
    Header
    ========================================= */
 #header{
   width: min(var(--maxw), calc(100% - 32px));
-  margin: 18px auto 0 auto;
-  padding: 22px 24px;
+  margin: 16px auto 0 auto;
+  padding: 20px 22px;
 
   border-radius: var(--radius);
-  background: linear-gradient(135deg, var(--ink), #0b1220 65%, #070b12);
+  background: linear-gradient(135deg, #0f172a, #111827 55%, #0b1220);
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.10);
 }
 
-/* orange accent bar */
+/* Accent line */
 #header::before{
   content:"";
   position:absolute;
   top:0; left:0; right:0;
-  height: 4px;
-  background: linear-gradient(90deg, rgba(245,128,37,1), rgba(245,128,37,0.45));
+  height: 3px;
+  background: linear-gradient(90deg, rgba(245,128,37,1), rgba(245,128,37,0.35));
 }
 
-/* subtle orange glow */
+/* subtle glow */
 #header::after{
   content:"";
   position:absolute;
-  inset:-160px -160px auto auto;
-  width: 460px;
-  height: 460px;
-  background: radial-gradient(circle at 30% 30%, rgba(245,128,37,0.28), transparent 60%);
+  inset:-170px -170px auto auto;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle at 30% 30%, rgba(245,128,37,0.22), transparent 62%);
   transform: rotate(12deg);
   pointer-events:none;
 }
@@ -115,15 +116,23 @@ a:hover{ color: var(--orange); }
 }
 
 /* =========================================
-   Main container + layout (Flexbox)
+   Content Container + Layout (Flex)
    ========================================= */
 #content{
-  background: var(--surface);
+  width: min(var(--maxw), calc(100% - 32px));
+  margin: 12px auto 0 auto;
+  padding: 18px;
+
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  background: var(--surface-2);
+  backdrop-filter: blur(8px);
   box-shadow: var(--shadow-soft);
-}
 
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
 
 /* Disable floats from old template */
 #colOne, #colTwo{
@@ -141,17 +150,17 @@ a:hover{ color: var(--orange); }
 /* Right column */
 #colTwo{
   flex: 1 1 auto;
-  min-width: 0;               /* 긴 링크/테이블이 레이아웃 깨는 것 방지 */
+  min-width: 0;
   padding: 6px 6px 12px 6px;
 }
 
-/* Prevent first child margins from pushing content down */
+/* Prevent first-child margins pushing down */
 #colOne > :first-child,
 #colTwo > :first-child{
   margin-top: 0 !important;
 }
 
-/* Section headings inside content */
+/* Section headings */
 #content h2{
   margin: 14px 0 10px 0;
   font-size: 18px;
@@ -159,13 +168,13 @@ a:hover{ color: var(--orange); }
 }
 
 /* =========================================
-   Menu (Left)
+   Menu (Left Nav)
    ========================================= */
 #menu1{
   width: 100%;
   margin: 0;
   padding: 0;
-  font-weight: 700;
+  font-weight: 750;
   font-size: 14px;
   color: var(--text);
 }
@@ -179,7 +188,7 @@ a:hover{ color: var(--orange); }
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: var(--surface);
-  box-shadow: 0 10px 22px rgba(28,28,28,0.06);
+  box-shadow: 0 10px 22px rgba(17,24,39,0.06);
 }
 
 #menu1 a{
@@ -192,7 +201,7 @@ a:hover{ color: var(--orange); }
   padding: 12px 14px;
 
   background: transparent;
-  border-bottom: 1px solid rgba(28,28,28,0.08);
+  border-bottom: 1px solid rgba(17,24,39,0.08);
 
   text-align: left;
   font-weight: 750;
@@ -207,29 +216,26 @@ a:hover{ color: var(--orange); }
 #menu1 li:last-child a{ border-bottom: 0; }
 
 /* =========================================
-   Images (profile photo etc.)
+   Images
    ========================================= */
-img{
-  max-width: 100%;
-  height: auto;
-}
+img{ max-width: 100%; height: auto; }
 
 #colTwo img{
   display: block;
   margin: 10px auto 14px auto;
   border-radius: 14px;
-  box-shadow: 0 10px 22px rgba(28,28,28,0.10);
+  box-shadow: 0 10px 22px rgba(17,24,39,0.10);
 }
 
 /* =========================================
-   Optional utility card
-   Use: <div class="panel">...</div>
+   Utility card (optional)
+   Use in HTML: <div class="panel">...</div>
    ========================================= */
 .panel{
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--surface);
-  box-shadow: 0 10px 22px rgba(28,28,28,0.06);
+  box-shadow: 0 10px 22px rgba(17,24,39,0.06);
   padding: 14px 16px;
 }
 
@@ -247,7 +253,7 @@ img{
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--surface);
-  box-shadow: 0 10px 22px rgba(28,28,28,0.06);
+  box-shadow: 0 10px 22px rgba(17,24,39,0.06);
 }
 
 #colTwo .course-row{
@@ -255,7 +261,7 @@ img{
   grid-template-columns: 1.25fr 1fr;
   gap: 14px;
   padding: 12px 14px;
-  border-top: 1px solid rgba(28,28,28,0.08);
+  border-top: 1px solid rgba(17,24,39,0.08);
 }
 
 #colTwo .course-row:first-child{ border-top: none; }
@@ -275,7 +281,7 @@ img{
 }
 
 #colTwo .course-name{
-  color: rgba(28,28,28,0.70);
+  color: rgba(17,24,39,0.70);
   font-size: 12.5px;
   margin-top: 2px;
 }
@@ -296,7 +302,7 @@ img{
   text-align: center;
   padding: 10px 0;
   font-size: 12px;
-  color: rgba(28,28,28,0.58);
+  color: rgba(17,24,39,0.58);
 }
 
 /* =========================================
@@ -316,7 +322,7 @@ img{
   #colTwo .course-head{ display: none; }
   #colTwo .course-row{ grid-template-columns: 1fr; gap: 6px; }
   #colTwo .course-row .course-cell:last-child{
-    color: rgba(28,28,28,0.62);
+    color: rgba(17,24,39,0.62);
     font-size: 12.5px;
   }
 }
