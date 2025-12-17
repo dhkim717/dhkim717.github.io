@@ -6,24 +6,26 @@
    ========================================= */
 
 :root{
-  /* Princeton-ish palette */
-  --bg: #f7f3ea;              /* warm ivory */
-  --surface: #ffffff;
-  --text: #1c1c1c;            /* deep charcoal */
+  /* Academic ivory / light gray */
+  --bg: #f5f6f7;              /* light gray base */
+  --surface: #ffffff;         /* cards / panels */
+  --text: #1c1c1c;
   --muted: rgba(28,28,28,0.62);
   --border: rgba(28,28,28,0.12);
 
-  --orange: #f58025;          /* Princeton orange vibe */
-  --orange-dark: #b45309;     /* warm orange-brown */
-  --ink: #111827;             /* near-black/navy */
+  /* Accent (keep Princeton orange subtle) */
+  --orange: #f58025;
+  --orange-dark: #b45309;
+  --ink: #111827;
 
-  --shadow: 0 14px 38px rgba(28,28,28,0.12);
-  --shadow-soft: 0 10px 26px rgba(28,28,28,0.10);
+  --shadow: 0 14px 38px rgba(28,28,28,0.10);
+  --shadow-soft: 0 10px 26px rgba(28,28,28,0.08);
 
   --radius: 18px;
   --radius-sm: 12px;
   --maxw: 980px;
 }
+
 
 *{ box-sizing: border-box; }
 
@@ -32,15 +34,19 @@ html, body{ height: 100%; }
 body{
   margin: 0;
   color: var(--text);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   line-height: 1.65;
   text-align: left;
 
   background:
-    radial-gradient(900px 600px at 12% 0%, rgba(245,128,37,0.16), transparent 60%),
-    radial-gradient(1100px 700px at 92% 10%, rgba(17,24,39,0.08), transparent 62%),
-    linear-gradient(180deg, #fbf7ef 0%, #f6f2e9 45%, var(--bg) 100%);
+    linear-gradient(
+      180deg,
+      #fafafa 0%,
+      #f5f6f7 40%,
+      #f1f2f4 100%
+    );
 }
+
 
 /* Typography */
 p{ margin: 0 0 12px 0; color: rgba(28,28,28,0.92); }
@@ -112,20 +118,12 @@ a:hover{ color: var(--orange); }
    Main container + layout (Flexbox)
    ========================================= */
 #content{
-  width: min(var(--maxw), calc(100% - 32px));
-  margin: 12px auto 0 auto;
-  padding: 18px;
-
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: rgba(255,255,255,0.82);
-  backdrop-filter: blur(8px);
   box-shadow: var(--shadow-soft);
-
-  display: flex;              /* 핵심: float 제거 */
-  align-items: flex-start;
-  gap: 18px;
 }
+
 
 /* Disable floats from old template */
 #colOne, #colTwo{
