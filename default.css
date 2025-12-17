@@ -309,3 +309,27 @@ a:hover{ color: var(--orange); }
     font-size: 12.5px;
   }
 }
+
+/* ===== Fix: content pushed down in index.html ===== */
+
+/* 1) 헤더/콘텐츠 간격이 과하면 줄이기 */
+#header { margin: 12px auto 0 auto; }
+#content { margin: 10px auto 0 auto; }
+
+/* 2) 컬럼 안 "첫 요소"가 위에서 밀리는 문제 해결 */
+#colOne > :first-child,
+#colTwo > :first-child{
+  margin-top: 0 !important;
+}
+
+/* 3) 혹시 h2 기본 여백이 커서 밀리면 통일 */
+#content h2{
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+/* 4) 헤더 안 요소들도 불필요하게 밀리는 것 방지 */
+#header h1, #header h2{
+  line-height: 1.15;
+}
+
